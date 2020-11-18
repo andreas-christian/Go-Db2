@@ -9,7 +9,7 @@ If you just want to get hands-on programming experience with Go language and Db2
 ## Download and Install the required software
 Here are the prerequisites to run the sample programs on your local machine:
 - Install a go language binary release suitable for your system: https://golang.org/
-- Install Db2. The Db2 Community Edition is available as standard download or as a docker container which can be installed with a single command: https://www.ibm.com/cloud/blog/announcements/ibm-db2-developer-community-edition-
+- Install Db2. The Db2 Community Edition is available as standard download or as a docker container which can be installed with a single command: https://www.ibm.com/cloud/blog/announcements/ibm-db2-developer-community-edition
 - Install the go_ibm_db cli driver: https://github.com/ibmdb/go_ibm_db
 
 ## Create the Db2 sample database
