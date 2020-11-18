@@ -19,9 +19,9 @@ Here is an overview what the sample programs do. More details are provided in th
 8. ```delete_rows.go``` Deletes multiple rows in a loop.
 9. ```create_table.go``` Executes a CREATE TABLE statement.
 10. ```get_column_names.go``` Returns the names of the columns in a table.
-11. ```update_row.go``` Updates exactly one row in a table. update_row.go
-12. ```update_multiple_rows_with_autocommit.go``` Updates rows in a loop. Each update is immediately commited.
-13. ```update_multiple_rows_in_one_unit_of_work.go``` 
+11. ```update_row.go``` Updates exactly one row in a table. 
+12. ```update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.
+13. ```update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
 
 ## Download and Install the required software
 Here are the prerequisites to run the sample programs on your local machine:
