@@ -4,7 +4,7 @@ The sample programs in this repository explain how to access and modify data in 
 
 Read through the following tutorial to understand how the sample programs select data from Db2 and how they insert, update and delete data. 
 
-If you just want to get hands-on programming experience with Go language and Db2 you can also work through the below tutorial on a virtual machine in the cloud. This has all required software pre-installed and can be used for up to one week: https://www.ibm.com/cloud/garage/dte/tutorial/go-db2-use-go-language-develop-db2-database-applications
+If you just want to get hands-on programming experience with Go language and Db2 you can also take the tutorial on a virtual machine in the cloud. This has all required software pre-installed and can be used for up to one week: https://www.ibm.com/cloud/garage/dte/tutorial/go-db2-use-go-language-develop-db2-database-applications
 
 ## Download and Install the required software
 Here are the prerequisites to run the sample programs on your local machine:
