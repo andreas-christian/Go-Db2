@@ -12,8 +12,9 @@ Here are the prerequisites to run the sample programs on your local machine:
 - Install the go_ibm_db cli driver: https://github.com/ibmdb/go_ibm_db
 
 After you have setup your environment you also need to create the Db2 sample database. This can be done from the db2 command line:
-  su - db2inst1
-  db2sample
-
+``` 
+su - db2inst1
+db2sample
+``` 
 Details around the sample database can be found here:
 https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.samptop.doc/doc/t0006757.html
