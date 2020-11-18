@@ -31,7 +31,7 @@ Here are the prerequisites to run the sample programs on your local machine:
 - Download and extract this Github repository. If you have the ```git``` command line tool installed you can clone the repository to your local machine like this: ```git clone https://github.com/andreas-christian/Go-Db2```
 
 ## Create the Db2 sample database
-After you have installed the required software you also need to create the Db2 *sample* database. For example, on Linux, you can run the following commands in a shell:
+After you have installed the required software you also need to create the Db2 *sample* database. On Linux for example, you can run the following commands in a shell:
 ``` 
 su - db2inst1
 db2sample
