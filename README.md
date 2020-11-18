@@ -6,6 +6,23 @@ Read through the following tutorial to understand how the sample programs select
 
 If you just want to get hands-on programming experience with Go language and Db2 you can also take the tutorial on a virtual machine in the cloud. This has all required software pre-installed and can be used for up to one week: https://www.ibm.com/cloud/garage/dte/tutorial/go-db2-use-go-language-develop-db2-database-applications
 
+## Overview of the sample programs
+
+Here is an overview what the sample programs do. More details are provided in the tutorial sections further down:
+1. ```hello_world.go``` Prints the *Hello world* message.
+2. ```connect.go``` Connects to the Db2 *sample* database.
+3. ```count_rows.go``` Counts the number of records in some of the tables.
+4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
+5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
+6. ```insert_one_row.go``` Executes a simple INSERT statement.
+7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
+8. ```delete_rows.go``` Deletes multiple rows in a loop.
+9. ```create_table.go``` Executes a CREATE TABLE statement.
+10. ```get_column_names.go``` Returns the names of the columns in a table.
+11. ```update_row.go``` Updates exactly one row in a table. update_row.go
+12. ```update_multiple_rows_with_autocommit.go``` Updates rows in a loop. Each update is immediately commited.
+13. ```update_multiple_rows_in_one_unit_of_work.go``` 
+
 ## Download and Install the required software
 Here are the prerequisites to run the sample programs on your local machine:
 - Install a *Go language* binary release suitable for your operating system: https://golang.org/
@@ -37,18 +54,4 @@ Perform the following steps to execute one of the sample programs:
 - Change to the directory where the sample programs are located. On Linux for example, if you extracted the *Go-Db2* Git repository in the home directory of your user, execute the following command: ```cd ~/Go-Db2/programs```
 - Then execute a program like this: ```go run hello_world.go```
 
-## Overview of the sample programs
 
-1. ```hello_world.go``` Prints the *Hello world* message.
-2. ```connect.go``` Connects to the Db2 *sample* database.
-3. ```count_rows.go``` Counts the number of records in some of the tables.
-4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
-5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
-6. ```insert_one_row.go``` Executes a simple INSERT statement.
-7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
-8. ```delete_rows.go``` Deletes multiple rows in a loop.
-9. ```create_table.go``` Executes a CREATE TABLE statement.
-10. ```get_column_names.go``` Returns the names of the columns in a table.
-11. ```update_row.go``` Updates exactly one row in a table. update_row.go
-12. ```update_multiple_rows_with_autocommit.go``` Updates rows in a loop. Each update is immediately commited.
-13. ```update_multiple_rows_in_one_unit_of_work.go``` 
