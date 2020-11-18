@@ -1,6 +1,6 @@
 # Accessing Db2 with the Go programming language
 
-The sample programs in this repository explain how to access and modify data in **Db2** using the **Go** programming language. *Go* was designed at Google to improve programming productivity. The Db2 Community Edition can be used free of charge and contains
+The sample programs in this repository show how to access and modify data in **Db2** using the **Go** programming language. *Go* was designed at Google to improve programming productivity. You can use the *Db2 Community Edition* to work with the sample programs. It is a full-featured version of Db2 but with automatically enforced sizing limitations. It can deploy up to 4 cores, 16 GB memory and 100 GB storage for the database.
 
 Read through the following tutorial to understand how the sample programs select data from Db2 and how they insert, update and delete data. 
 
