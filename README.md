@@ -41,8 +41,8 @@ Perform the following steps to execute one of the sample programs:
 
 1. ```hello_world.go``` just prints the *Hello world* message
 2. ```connect.go``` connects to the sample database
-3. ```count_rows.go``` counts the
-4. ```fetch_rows.go```
-5. ```insert_one_row.go```
+3. ```count_rows.go``` counts the number of records in tables ACT, DEPARTMENT, EMPLOYEE, ORG
+4. ```fetch_rows.go``` executes the SQL statement *select firstnme, lastname, job from employee where job='MANAGER'* and retrieves the result
+5. ```insert_one_row.go``` executes the SQL statement 
 6. ```insert_multiple_rows.go```
 7.  
