@@ -39,10 +39,10 @@ Perform the following steps to execute one of the sample programs:
 
 ## Overview of the sample programs
 
-- hello_world.go
-- connect.go
-- count_rows.go
-- fetch_rows.go
-- insert_one_row.go
-- insert_multiple_rows.go
-- 
+1. ```hello_world.go``` just prints the *Hello world* message
+2. ```connect.go``` connects to the sample database
+3. ```count_rows.go``` counts the
+4. ```fetch_rows.go```
+5. ```insert_one_row.go```
+6. ```insert_multiple_rows.go```
+7.  
