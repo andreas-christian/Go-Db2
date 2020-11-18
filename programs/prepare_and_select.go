@@ -1,4 +1,4 @@
-// prepare_and_execute.go
+// prepare_and_select.go
 
 package main
 
