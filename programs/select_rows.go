@@ -1,4 +1,4 @@
-// fetch_rows.go
+// select_rows.go
 
 package main
 import (
