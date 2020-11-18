@@ -1,4 +1,4 @@
-// connect2.go
+// connect.go
 
 package main
 
