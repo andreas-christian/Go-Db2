@@ -1,6 +1,6 @@
 # Accessing Db2 with the Go programming language
 
-The sample programs in this repository explain how to access and modify data in Db2 using the Go programming language. Go was designed at Google to improve programming productivity. 
+The sample programs in this repository explain how to access and modify data in **Db2** using the **Go** programming language. *Go* was designed at Google to improve programming productivity. 
 
 Read through the following tutorial to understand how the sample programs select data from Db2 and how they insert, update and delete data. 
 
