@@ -11,13 +11,21 @@ Here are the prerequisites to run the sample programs on your local machine:
 - Install a go language binary release suitable for your system: https://golang.org/
 - Install Db2. The Db2 Community Edition is available as standard download or as a docker container which can be installed with a single command: https://www.ibm.com/cloud/blog/announcements/ibm-db2-developer-community-edition
 - Install the go_ibm_db cli driver: https://github.com/ibmdb/go_ibm_db
-- Download and extract this Github repository. If you have the ```git``` commandline tool installed you can clone the repository like this: ```git clone https://github.com/andreas-christian/Go-Db2```
+- Download and extract this Github repository. If you have the ```git``` command line tool installed you can clone the repository like this: ```git clone https://github.com/andreas-christian/Go-Db2```
 
 ## Create the Db2 sample database
-After you have setup your environment you also need to create the Db2 sample database. On Linux, this can be done from a shell:
+After you have installed the required software you also need to create the Db2 *sample* database. On Linux, this can be done from a shell:
 ``` 
 su - db2inst1
 db2sample
 ``` 
 Details around the ```db2sample``` command can be found here:
 https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.samptop.doc/doc/t0006757.html
+
+## How to execute the sample programs
+
+Perform the following steps to execute one of the sample programs:
+- Open a shell window
+- Change to the directory where the sample programs are located. On Linux for example, if you extracted the *Go-Db2* Git repository in the home directory of your user, execute the following command: ```cd ~/Go-Db2/programs```
+- Then execute a program like this: ```go run hello_world.go```
+
