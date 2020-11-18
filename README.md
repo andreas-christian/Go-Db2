@@ -37,3 +37,12 @@ Perform the following steps to execute one of the sample programs:
 - Change to the directory where the sample programs are located. On Linux for example, if you extracted the *Go-Db2* Git repository in the home directory of your user, execute the following command: ```cd ~/Go-Db2/programs```
 - Then execute a program like this: ```go run hello_world.go```
 
+## Overview of the sample programs
+
+- hello_world.go
+- connect.go
+- count_rows.go
+- fetch_rows.go
+- insert_one_row.go
+- insert_multiple_rows.go
+- 
