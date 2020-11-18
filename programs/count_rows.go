@@ -1,4 +1,4 @@
-// count2.go
+// count_rows.go
 
 package main
 import (
