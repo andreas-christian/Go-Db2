@@ -1,6 +1,6 @@
 # Accessing Db2 with the Go programming language
 
-The sample programs in this repository explain how to access and modify data in **Db2** using the **Go** programming language. *Go* was designed at Google to improve programming productivity. 
+The sample programs in this repository explain how to access and modify data in **Db2** using the **Go** programming language. *Go* was designed at Google to improve programming productivity. The Db2 Community Edition can be used free of charge and contains
 
 Read through the following tutorial to understand how the sample programs select data from Db2 and how they insert, update and delete data. 
 
@@ -49,9 +49,24 @@ https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.s
 
 ## How to execute the sample programs
 
-Perform the following steps to execute one of the sample programs:
-- Open a shell window
-- Change to the directory where the sample programs are located. On Linux for example, if you extracted the *Go-Db2* Git repository in the home directory of your user, execute the following command: ```cd ~/Go-Db2/programs```
-- Then execute a program like this: ```go run hello_world.go```
+# Go Db2 Tutorial
+
+## connect.go
+
+Connects to the Db2 *sample* database.
 
 
+
+1. ```hello_world.go``` Prints the *Hello world* message.
+2. ```connect.go``` Connects to the Db2 *sample* database.
+3. ```count_rows.go``` Counts the number of records in some of the tables.
+4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
+5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
+6. ```insert_one_row.go``` Executes a simple INSERT statement.
+7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
+8. ```delete_rows.go``` Deletes multiple rows in a loop.
+9. ```create_table.go``` Executes a CREATE TABLE statement.
+10. ```get_column_names.go``` Returns the names of the columns in a table.
+11. ```update_row.go``` Updates exactly one row in a table. 
+12. ```update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.
+13. ```update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
