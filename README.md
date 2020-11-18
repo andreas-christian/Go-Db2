@@ -46,9 +46,9 @@ Perform the following steps to execute one of the sample programs:
 5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
 6. ```insert_one_row.go``` Executes a simple INSERT statement.
 7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
-8. delete_rows.go
-9. create_table.go
-10. get_column_names.go
+8. ```delete_rows.go``` Deletes multiple rows in a loop.
+9. ```create_table.go``` Executes a CREATE TABLE statement.
+10. ```get_column_names.go``` Returns the names of the columns in a table.
 11. ```update_row.go``` Updates exactly one row in a table. update_row.go
 12. ```update_multiple_rows_with_autocommit.go``` Updates rows in a loop. Each update is immediately commited.
 13. ```update_multiple_rows_in_one_unit_of_work.go``` 
