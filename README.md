@@ -39,10 +39,16 @@ Perform the following steps to execute one of the sample programs:
 
 ## Overview of the sample programs
 
-1. ```hello_world.go``` just prints the *Hello world* message
-2. ```connect.go``` connects to the sample database
-3. ```count_rows.go``` counts the number of records in tables ACT, DEPARTMENT, EMPLOYEE, ORG
-4. ```fetch_rows.go``` executes the SQL statement *select firstnme, lastname, job from employee where job='MANAGER'* and retrieves the result
-5. ```insert_one_row.go``` executes the SQL statement 
-6. ```insert_multiple_rows.go```
-7.  
+1. ```hello_world.go``` Prints the *Hello world* message.
+2. ```connect.go``` Connects to the Db2 *sample* database.
+3. ```count_rows.go``` Counts the number of records in some of the tables.
+4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
+5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
+6. ```insert_one_row.go``` Executes a simple INSERT statement.
+7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
+8. delete_rows.go
+9. create_table.go
+10. get_column_names.go
+11. ```update_row.go``` Updates exactly one row in a table. update_row.go
+12. ```update_multiple_rows_with_autocommit.go``` Updates rows in a loop. Each update is immediately commited.
+13. ```update_multiple_rows_in_one_unit_of_work.go``` 
