@@ -11,4 +11,11 @@ Here are the prerequisites to run the sample programs on your local machine:
 - Install Db2. The Db2 Community Edition is available as standard download or as a docker container which can be installed with a single command: https://www.ibm.com/cloud/blog/announcements/ibm-db2-developer-community-edition-
 - Install the go_ibm_db cli driver: https://github.com/ibmdb/go_ibm_db
 
-test test test
+After you have setup your environment you also need to create the Db2 sample database. This can be done from the db2 command line:
+`
+su - db2inst1
+db2sample
+`
+
+Details around the sample database can be found here:
+https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.samptop.doc/doc/t0006757.html
