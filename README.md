@@ -139,14 +139,121 @@ func main() {
         count("ORG")
 }
 ```
+ # select_rows.go
+
+Executes a SELECT statement and retrieves the result set.
+```
+// select_rows.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        rows,err := db.Query("select firstnme, lastname, job from employee where job='MANAGER'")
+        if err != nil {
+                return
+        }
+        // make sure that the "rows" handle is released when main returns
+        defer rows.Close()
+
+        // iterate over all rows in the query result
+        var a,b,c string
+        for rows.Next() {
+                err = rows.Scan(&a,&b,&c)
+                if err != nil{
+                        fmt.Println(err)
+                        return
+                }
+                fmt.Printf("%-10s %-10s %-10s\n",a,b,c)
+        }
+}
+```
+# prepare_and_select.go
+
+Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
+```
+// prepare_and_select.go
+
+package main
+
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        // prepare the statement once with a parameter marker
+        st, err := db.Prepare("select firstnme, lastname, job, workdept from employee where workdept = ?" )
+        if err !=nil {
+                fmt.Println("Error in Prepare: ")
+                fmt.Println(err)
+                return
+        }
+        // execute the statement multiple times and use a different
+        // work department in the where clause for each query execution
+        departments := []string{"A00","B01","C01","D11","D21","E11","E21"}
+        for _,dept := range departments{
+                fmt.Printf("\nSelect records for department '%s'\n", dept)
+                rows,err := st.Query(dept)
+                if err != nil {
+                        fmt.Println("Error in Query: ")
+                        fmt.Println(err)
+                        return
+                }
+
+                // iterate over all rows in the query result
+                for rows.Next() {
+                        var a,b,c,d string
+                        err = rows.Scan(&a,&b,&c,&d)
+                        if err != nil{
+                                fmt.Println(err)
+                                return
+                        }
+                fmt.Printf("%-10s %-10s %-10s %-10s\n",a,b,c,d)
+                }
+                rows.Close()
+        }
+}
+```
+
+# insert_one_row.go
+
+Executes a simple INSERT statement.
 
 
-1. ```hello_world.go``` Prints the *Hello world* message.
-2. ```connect.go``` Connects to the Db2 *sample* database.
-3. ```count_rows.go``` Counts the number of records in some of the tables.
-4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
-5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
-6. ```insert_one_row.go``` Executes a simple INSERT statement.
 7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
 8. ```delete_rows.go``` Deletes multiple rows in a loop.
 9. ```create_table.go``` Executes a CREATE TABLE statement.
