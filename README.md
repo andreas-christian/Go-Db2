@@ -252,12 +252,415 @@ func main() {
 # insert_one_row.go
 
 Executes a simple INSERT statement.
+```
+// insert_one_row.go
 
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
 
-7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
-8. ```delete_rows.go``` Deletes multiple rows in a loop.
-9. ```create_table.go``` Executes a CREATE TABLE statement.
-10. ```get_column_names.go``` Returns the names of the columns in a table.
-11. ```update_row.go``` Updates exactly one row in a table. 
-12. ```update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.
-13. ```update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        _,err:=db.Exec("insert into lineitem values (99,'Flowers',5)")
+        if err != nil{
+                fmt.Println("Error:")
+                fmt.Println(err)
+                return
+        }
+        fmt.Println("Row inserted.")
+}
+```
+# insert_multiple_rows.go
+
+Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
+```
+// insert_multiple_rows.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        // prepare the statement once with parameter markers
+        st, err := db.Prepare("insert into lineitem values (?,?,?)" )
+        if err !=nil {
+                fmt.Println("Error in Prepare: ")
+                fmt.Println(err)
+                return
+        }
+
+        lineitems:= []string{"Shirt","Bicycle","Laptop","Coffee","Burger","Watch"}
+        for idx,item := range lineitems{
+                _,err = st.Exec(idx,item,5)
+                if err != nil{
+                        fmt.Println("Error:")
+                        fmt.Println(err)
+                        return
+                }
+                fmt.Println("Row inserted.")
+        }
+}
+```
+
+# delete_rows.go
+
+Deletes multiple rows in a loop.
+```
+// delete_rows.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        st, err := db.Prepare("delete from lineitem where name=?")
+        if err !=nil {
+                fmt.Println("Error in Prepare: ")
+                fmt.Println(err)
+                return
+        }
+
+        lineitems:= []string{"Shirt","Coffee"}
+        for _,item := range lineitems{
+                _,err = st.Exec(item)
+                if err != nil{
+                        fmt.Println("Error:")
+                        fmt.Println(err)
+                        return
+                }
+                fmt.Println("Item deleted:")
+                fmt.Println(item)
+        }
+}
+```
+
+# create_table.go
+
+Executes a CREATE TABLE statement.
+```
+// create_table.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        _,err:=db.Exec("create table LINEITEM(ID int,NAME varchar(20),QTY int)")
+        if err != nil{
+                fmt.Println("Error:")
+                fmt.Println(err)
+                return
+        }
+        fmt.Println("TABLE CREATED")
+}
+```
+
+# get_column_names.go
+
+Returns the names of the columns in a table.
+```
+// get_column_names.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        rows,err := db.Query("select * from employee fetch first 1 row only")
+        if err != nil {
+                fmt.Printf("db.Query(): error!")
+                return
+        }
+        // make sure that the "rows" handle is released when main returns
+        defer rows.Close()
+
+        cols, err := rows.Columns()
+        fmt.Println("Number of columns: ",len(cols))
+        // print the whole array at once
+        fmt.Printf("%v\n",cols)
+        // print each column name on a separate line
+        for _,name := range cols {
+                fmt.Printf("%s\n",name)
+        }
+}
+```
+
+# update_row.go
+
+Updates exactly one row in a table. 
+
+```
+// update_row.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        // prepare the statement with parameter markers
+        st, err := db.Prepare("update lineitem set qty=? where id=?")
+        if err !=nil {
+                fmt.Println("Error in Prepare: ")
+                fmt.Println(err)
+                return
+        }
+
+        id := 0
+        qty := 3
+        _, err = st.Exec(id, qty)
+        if err != nil{
+                fmt.Println("Error:")
+                fmt.Println(err)
+                return
+        }
+        fmt.Println("Row updated.")
+}
+```
+
+# update_multiple_rows_with_autocommit.go
+
+Updates multiple rows in a loop. Each update is immediately commited.
+```
+// update_multiple_rows_with_autocommit.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+    "time"
+)
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        rows,err := db.Query("select * from lineitem")
+        if err != nil {
+                return
+        }
+        defer rows.Close()
+
+        var currentTime int64
+        currentTime = time.Now().Unix()
+        newqty := currentTime & 0x00000000000000FF
+        fmt.Println("Quantity:", newqty)
+
+        var id int32
+        var name string
+        var qty int32
+
+        for rows.Next() {
+                err = rows.Scan(&id,&name,&qty)
+                if err != nil{
+                        fmt.Println(err)
+                        return
+                }
+                fmt.Printf("Fetched one row:\n")
+                fmt.Printf("%-5d %-10s %-5d\n",id,name,qty)
+                time.Sleep(1*time.Second)
+
+                fmt.Printf("Updating row with new quantity value: %d\n",newqty)
+                _,err = db.Exec("update lineitem set qty=? where id=?",newqty,id)
+                if err != nil{
+                        fmt.Println(err)
+                        return
+                }
+
+        }
+}
+```
+
+# update_multiple_rows_in_one_unit_of_work.go
+
+Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
+```
+// update_multiple_rows_in_one_unit_of_work.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+    "time"
+)
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        rows,err := db.Query("select * from lineitem")
+        if err != nil {
+                return
+        }
+        defer rows.Close()
+
+        var currentTime int64
+        currentTime = time.Now().Unix()
+        newqty := currentTime & 0x00000000000000FF
+        fmt.Println("Quantity:", newqty)
+
+        var id int32
+        var name string
+        var qty int32
+
+        // Begin Unit of Work (UoW)
+        uow, err := db.Begin()
+        if err != nil {
+                fmt.Println(err)
+                return
+        }
+        for rows.Next() {
+                err = rows.Scan(&id,&name,&qty)
+                if err != nil{
+                        fmt.Println(err)
+                        return
+                }
+                fmt.Printf("Fetched one row:\n")
+                fmt.Printf("%-5d %-10s %-5d\n",id,name,qty)
+                time.Sleep(1*time.Second)
+
+                fmt.Printf("Updating row with new quantity value: %d\n",newqty)
+                _,err = uow.Exec("update lineitem set qty=? where id=?",newqty,id)
+                if err != nil{
+                        fmt.Println(err)
+                        return
+                }
+
+        }
+        // End Unit of Work
+        err = uow.Commit()
+        if err != nil {
+                fmt.Println(err)
+                return
+        }
+}
+```
+
