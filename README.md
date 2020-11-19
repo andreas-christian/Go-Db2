@@ -61,7 +61,16 @@ In the following sections we explain each of the sample programs in more detail.
 
 ## connect.go
 
-Connects to the Db2 *sample* database.
+```connect.go``` is a simple *Go* program that connects to the *SAMPLE* database. It imports the following packages which are required to deploy the Db2 driver API:
+```
+import _ "github.com/ibmdb/go_ibm_db"  
+import "database/sql"  
+```
+**Note:** The underscore before the package *github.com/ibmdb/go_ibm_db* is required. It ensures that the init function of the package is executed and package-level variables are created.
+
+The function *sql.Open()* is executed to setup a database connection. It requires the driver name *go_ibm_db* and the connection string *con* as input parameters. The connection string specifies *hostname, port number, database name, user name,* and *password*. If *sql.Open()* was executed successfully, the database handle *db* is initialized. Otherwise it will be set to *nil*. Before the program terminates it calls function *db.Close()*. It closes the database connection and cleans up the database handle.
+
+Execute *connect.go* from the shell as described in the previous section.
 
 ```
 // connect.go
