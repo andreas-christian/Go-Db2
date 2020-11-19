@@ -109,11 +109,11 @@ func main() {
 
 # count_rows.go
 
-In the next example, we use function *db.QueryRow()* to run a query that is expected to return at most one row. If there are multiple rows in the query result set, the function will only access the first row and discard the rest. We use the following select statement in this example:
+In the next example, we use function *db.QueryRow()* to run a query that is expected to return at most one row. If there are multiple rows in the query result set, the function will only access the first row and discard the rest. We use the following type of *SELECT* statement in this example:
 ```
-select count(*) statement from act
+select count(*) statement from <tabname>
 ```
-This statement always returns exactly one row and returns the number of records in table *ACT*.
+You notice that the SQL statement text is created by appending the table name in variable *tabname* to the rest of the SQL text. That means the SQL statement is created at runtime (not at compile time). The statement always returns exactly one row which contains the number of records that are stored in the table.
 
 The *Scan()* function copies the columns from the current row into the values pointed. Since we expect a single integer value in the query result set, we define variable *count* of type *int32* and pass a pointer to that variable into function *scan()*.
 
