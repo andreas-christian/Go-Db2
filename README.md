@@ -49,7 +49,7 @@ https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.s
 
 ## How to execute the sample programs
 
-The following example shows how to execute the sample programs. We assume that you have downloaded and extracted the git repository in the home directory of your user. To run program hello_world.go on Linux you take the following steps:
+The following example shows how to execute the sample programs. We assume that you have downloaded and extracted the git repository in the home directory of your user. To run program *hello_world.go* on Linux for example, you take the following steps:
 ```
 cd ~/Go-Db2/programs
 go run hello_world.go
