@@ -70,6 +70,10 @@ import "database/sql"
 
 The function *sql.Open()* is executed to setup a database connection. It requires the driver name *go_ibm_db* and the connection string *con* as input parameters. The connection string specifies *hostname, port number, database name, user name,* and *password*. If *sql.Open()* was executed successfully, the database handle *db* is initialized. Otherwise it will be set to *nil*. Before the program terminates it calls function *db.Close()*. It closes the database connection and cleans up the database handle.
 
+Since the database handle *db* is always required to execute a Db2 API function, we define the connection related variables *db, err,* and *con* outside of function *main()*. This makes sure we can access the database handle in all functions that are defined in package *main*.
+
+We put the *defer* keyword in front of the call of function *db.Close()*. This makes sure that the function is automatically executed as soon as a return statement is executed anywhere in function main().
+
 Execute *connect.go* from the shell as described in the previous section.
 
 ```
