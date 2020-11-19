@@ -2,9 +2,9 @@
 
 The sample programs in this repository show how to access and modify data in **Db2** using the **Go** programming language. *Go* was designed at Google to improve programming productivity. You can use the *Db2 Community Edition* to work with the sample programs. It is a full-featured version of Db2 but with automatically enforced sizing limitations. It can deploy up to 4 cores, 16 GB memory and 100 GB storage for the database.
 
-Read through the following tutorial to understand how the sample programs select data from Db2 and how they insert, update and delete data. 
+Read through the following tutorial to understand how the sample programs select data from *Db2* and how they insert, update and delete data. To understand the program examples, basic knowledge of *Go* language or *C* programming language is recommended.
 
-If you just want to get hands-on programming experience with Go language and Db2 you can also take the tutorial on a virtual machine in the cloud. This has all required software pre-installed and can be used for up to one week: https://www.ibm.com/cloud/garage/dte/tutorial/go-db2-use-go-language-develop-db2-database-applications
+If you just want to get hands-on programming experience with *Go* language and *Db2* you can also take the tutorial on a virtual machine in the cloud. This has all required software pre-installed and can be used for up to one week: https://www.ibm.com/cloud/garage/dte/tutorial/go-db2-use-go-language-develop-db2-database-applications
 
 ## Overview of the sample programs
 
@@ -57,7 +57,7 @@ go run hello_world.go
 
 # Go Db2 Tutorial
 
-In the following sections we explain each of the sample programs in more detail.
+In the following sections, we explain each of the sample programs in more detail. The *Go* code of each sample program is listed at the end of each section.
 
 ## connect.go
 
@@ -109,7 +109,13 @@ func main() {
 
 # count_rows.go
 
-Counts the number of records in some of the tables.
+In the next example, we use function *db.QueryRow()* to run a query that is expected to return at most one row. If there multiple rows in the query result set, the function will only access the first row and discard the rest. We use the following select statement in this example:
+```
+select count(*) statement from act
+```
+This statement always returns exactly one row and returns the number of records in table *ACT*.
+
+The *Scan()* function copies the columns from the current row into the values pointed. Since we expect a single integer value in the query result set, we define variable *count* of type *int32* and pass a pointer to that variable into function *scan()*.
 
 ```
 // count_rows.go
