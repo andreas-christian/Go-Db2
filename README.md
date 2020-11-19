@@ -8,7 +8,7 @@ If you just want to get hands-on programming experience with Go language and Db2
 
 ## Overview of the sample programs
 
-Here is an overview what the sample programs do. More details are provided in the tutorial sections further down:
+Here is an overview of the sample programs. More details are provided in the tutorial sections further down:
 1. ```hello_world.go``` Prints the *Hello world* message.
 2. ```connect.go``` Connects to the Db2 *sample* database.
 3. ```count_rows.go``` Counts the number of records in some of the tables.
