@@ -109,7 +109,7 @@ func main() {
 
 # count_rows.go
 
-In the next example, we use function *db.QueryRow()* to run a query that is expected to return at most one row. If there multiple rows in the query result set, the function will only access the first row and discard the rest. We use the following select statement in this example:
+In the next example, we use function *db.QueryRow()* to run a query that is expected to return at most one row. If there are multiple rows in the query result set, the function will only access the first row and discard the rest. We use the following select statement in this example:
 ```
 select count(*) statement from act
 ```
