@@ -217,7 +217,7 @@ In some cases you may want to execute a query several times but with different f
 ```
  select firstnme, lastname, job, workdept from employee where workdept = ?
  ```
-The statement is prepared by executing function *db.Prepare()*. The function returns a handle st to the prepared statement:
+The statement is prepared by executing function *db.Prepare()*. The function returns a handle *st* to the prepared statement:
 ```
 st, err := db.Prepare("select firstnme, lastname, job, workdept from employee where workdept = ?")
 ```
@@ -289,7 +289,16 @@ func main() {
 
 # insert_one_row.go
 
-Executes a simple INSERT statement.
+The next sample program inserts a single row into table *LINEITEM* using the following SQL statement:
+```
+insert into lineitem values (99,'Flowers',5)
+```
+In cases where you only execute a SQL statement one time, you can keep the code simple and prepare and execute the statement in one single step:
+```
+_,err:=db.Exec("insert into lineitem values (99,'Flowers',5)")
+```
+Since the *INSERT* statement does not return any data, we only retrieve the err code from the function call (see the underscore left from *err*).
+
 ```
 // insert_one_row.go
 
@@ -327,7 +336,25 @@ func main() {
 ```
 # insert_multiple_rows.go
 
-Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
+If you want to insert multiple records into a table, you can first prepare the *INSERT* statement and then execute it multiple times as shown in the next example. We use a *INSERT* statement which contains parameter markers as follows:
+```
+insert into lineitem values (?,?,?)
+```
+We first execute function *Prepare()* which returns handle st to the prepared statement:
+```
+st, err := db.Prepare("insert into lineitem values (?,?,?)")
+```
+Then we create a slice *lineitems*, iterate over the elements in the slice, assign the value of each element to variable *item*, and its index number to variable *idx*. 
+**Note:** In Go language a *slice* can be used similar to an array. While arrays have a static size, slices can grow in size (although under covers they are based on static arrays).
+```
+lineitems := []string{"Shirt","Bicycle","Laptop","Coffee","Burger","Watch"}
+for idx,item := range lineitems {
+```
+Finally, we call function *Exec()* and pass parameter values for each of the three parameter markers. We use a constant value 5 for column *QTY* (quantity):
+```
+_,err = st.Exec(idx,item,5)
+```
+Here is the corresponding sample program:
 ```
 // insert_multiple_rows.go
 
