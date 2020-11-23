@@ -213,7 +213,19 @@ func main() {
 ```
 # prepare_and_select.go
 
-Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
+In some cases you may want to execute a query several times but with different filter conditions. In this case, you can prepare the statement once and then execute it multiple times and use a different filter condition in each execution. This allows you to reuse the prepared statement and reduces the overhead of statement preparation. To do this you need to use a parameter marker (?) as shown in the example below:
+```
+ select firstnme, lastname, job, workdept from employee where workdept = ?
+ ```
+The statement is prepared by executing function *db.Prepare()*. The function returns a handle st to the prepared statement:
+```
+st, err := db.Prepare("select firstnme, lastname, job, workdept from employee where workdept = ?")
+```
+Function *st.Query()* prepares and executes the SQL statement. We use statement handle st to reference the prepared statement. We also have to pass the appropriate number of parameters to the function. Since we prepared the statement with one parameter marker, we pass one parameter dept to the function:
+```
+rows,err := st.Query(dept)
+```
+Here is the corresponding sample program:
 ```
 // prepare_and_select.go
 
