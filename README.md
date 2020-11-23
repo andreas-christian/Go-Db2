@@ -27,7 +27,7 @@ Here is an overview of the sample programs. More details are provided in the tut
 Here are the prerequisites to run the sample programs on your local machine:
 - Install a *Go language* binary release suitable for your operating system: https://golang.org/
 - Install Db2. The Db2 Community Edition is available as standard download or as a docker container which can be installed with a single command as described here: https://medium.com/@ajstorm/installing-db2-on-your-coffee-break-5be1d811b052. You find more infos about the different deployment options of *Db2 Community Edition* in the following article: https://www.ibm.com/cloud/blog/announcements/ibm-db2-developer-community-edition
-- Install the *go_ibm_db* cli driver: https://github.com/ibmdb/go_ibm_db
+- Install the *go_ibm_db* cli driver (also check the API documentation): https://github.com/ibmdb/go_ibm_db
 - Download and extract this Github repository. If you have the ```git``` command line tool installed you can clone the repository to your local machine like this: ```git clone https://github.com/andreas-christian/Go-Db2```
 
 ## Create the Db2 sample database
@@ -160,7 +160,14 @@ func main() {
 ```
  # select_rows.go
 
-Executes a SELECT statement and retrieves the result set.
+Next, you learn how to run a *SELECT* statement that returns more than one row. In this example, we use the following select statement:
+```
+select firstnme, lastname, job from employee where job='MANAGER'
+```
+Function *db.Query()* prepares and executes the *SELECT* statement. It is also possible to separate the preparation and execution of a SQL statement. This can help to reduce the overhead for statement preparation and is shown in a later example.
+
+Function *rows.Next()* iterates over the result set and prepares the next result row for reading with the *Scan()* api. Since the *SELECT* statement returns three values in each row of the result set, we define variables *a,b,* and *c* and pass their address to function *Scan()*. The function copies the columns from the current row into variables *a,b,* and *c*.
+
 ```
 // select_rows.go
 
