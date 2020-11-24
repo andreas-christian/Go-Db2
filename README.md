@@ -683,9 +683,9 @@ su - db2inst1
 db2 connect to sample
 db2 "select * from lineitem"
 ```
-- Execute program again and interrupt the program after it has updated the first two records. To interrupt the program type *Ctrl-C* in the shell window where you started the program.
+- Start the program again and interrupt it after the first two records are updated. To interrupt the program type *Ctrl-C* in the shell window where you started the program.
 - Check the content of table *lineitem*.
-You see that some records have been updated with the new quantity value while other records have not yet been updated. In many cases, this is not the desired behaviour. In transactional systems you have to ensure that either all SQL statements of a transaction are performed or none of them. In the next lab we will modify program to implement this behaviour.
+You see that some records have been updated with the new quantity value while other records have not yet been updated. In many cases, this is not the desired behaviour. In transactional systems you have to ensure that either all SQL statements of a transaction are performed or none of them. In the next lab we will modify the program to implement this behaviour.
 
 ```
 // update_multiple_rows_with_autocommit.go
