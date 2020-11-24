@@ -418,7 +418,12 @@ lineitems := []string{"Shirt","Coffee"}
 for _,item := range lineitems{
     _,err = st.Exec(item)
 ```
-When ranging over a slice, two values are returned for each iteration. The first is the index, and the second is a copy of the element (item) at that index. In our example, we don't store the first return value (index) and hence put an underscore in that place.
+There are different ways to use the *range* operator:
+```
+for _,name := range cols { ... }
+for idx,name := range cols { ... }
+```
+In our example, we use the first form which only retrieves the elements of the array *lineitems*. Alternatively, you can also retrieve the index value of each array element.
 
 
 ```
@@ -472,7 +477,7 @@ func main() {
 
 The next sample program creates a new table using the following SQL statement:
 ```
-create table LINEITEM(ID int,NAME varchar(20),QTY int)
+create table LINEITEM(ID int, NAME varchar(20), QTY int)
 ```
 In this example, the statement is prepared and executed in one step. In case the table already exists, function *Exec()* will return error *SQL0601* and the program will only print the error message and terminate.
 
@@ -514,7 +519,24 @@ func main() {
 
 # get_column_names.go
 
-Returns the names of the columns in a table.
+To retrieve the column names from a table, we use a SQL query that selects all columns from the table and retrieves one row only:
+```
+select * from employee fetch first 1 row only
+```
+We use function *db.Query()* to execute that query. The function returns a handle to the query result (rows):
+```
+rows,err := db.Query("select * from employee fetch first 1 row only")
+```
+We then use handle rows to retrieve the column names. Function rows.Columns() stores the column names in a dynamically created array:
+```
+cols, err := rows.Columns()
+```
+We can use function Printf() to print the whole array at once:
+```
+fmt.Printf("%v\n",cols) 
+```
+Alternatively, we can use the *range* operator to iterate over the array and print each element on a separate line. 
+
 ```
 // get_column_names.go
 
