@@ -523,11 +523,11 @@ To retrieve the column names from a table, we use a SQL query that selects all c
 ```
 select * from employee fetch first 1 row only
 ```
-We use function *db.Query()* to execute that query. The function returns a handle to the query result (rows):
+We use function *db.Query()* to execute that query. The function returns handle *rows* that can be used to access the query result:
 ```
 rows,err := db.Query("select * from employee fetch first 1 row only")
 ```
-We then use handle rows to retrieve the column names. Function rows.Columns() stores the column names in a dynamically created array:
+Next, we use handle *rows* to retrieve the column names. Function *rows.Columns()* stores the column names in a dynamically created array:
 ```
 cols, err := rows.Columns()
 ```
@@ -583,7 +583,31 @@ func main() {
 
 # update_row.go
 
-Updates exactly one row in a table. 
+The next program example updates one of the records in table L*INEITEM*. It uses an `UPDATE` statement which contains parameter markers as follows:
+```sql
+update lineitem set qty=? where id=?
+```
+
+As in the previous example, the program first executes function ```Prepare()``` and then calls function  ```Exec()``` and passes the appropriate parameter values for each of the two parameter markers that are used in the SQL statement. 
+
+Before you execute `update.go` check the current content of table `LINEITEM` from the shell:
+```
+su - db2inst1
+db2 connect to sample
+db2 "select * from lineitem"
+```
+
+The output should look like this:
+
+|ID|NAME|QTY|
+|:----------------------|:------------------------|:-------------------|
+|99|Flowers|5|
+|0|Shirt|5|
+|1|Bicycle|5|
+|2|Laptop|5|
+|3|Coffee|5|
+|4|Burger|5|
+|5|Watch|5|
 
 ```
 // update_row.go
