@@ -8,7 +8,7 @@ If you just want to get hands-on programming experience with *Go* language and *
 
 ## Overview of the sample programs
 
-Here is an overview of the sample programs. More details are provided in the tutorial sections further down:
+Here is an overview of the sample programs. Click one of the following links to jump to the corresponding tutorial section further down:
 * [`connect.go` Connects to the Db2 *sample* database.](#connect)
 * [`count_rows.go` Counts the number of records in some of the tables.](#count_rows)
 * [`select_rows.go` Executes a SELECT statement and retrieves the result set.](#select_rows)
