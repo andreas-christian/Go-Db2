@@ -9,6 +9,19 @@ If you just want to get hands-on programming experience with *Go* language and *
 ## Overview of the sample programs
 
 Here is an overview of the sample programs. More details are provided in the tutorial sections further down:
+* [`connect.go` Connects to the Db2 *sample* database.](#connect)
+3. ```count_rows.go``` Counts the number of records in some of the tables.
+4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
+5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
+6. ```insert_one_row.go``` Executes a simple INSERT statement.
+7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
+8. ```delete_rows.go``` Deletes multiple rows in a loop.
+9. ```create_table.go``` Executes a CREATE TABLE statement.
+10. ```get_column_names.go``` Returns the names of the columns in a table.
+11. ```update_row.go``` Updates exactly one row in a table. 
+12. ```update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.
+13. ```update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
+
 1. ```hello_world.go``` Prints the *Hello world* message.
 2. ```connect.go``` Connects to the Db2 *sample* database.
 3. ```count_rows.go``` Counts the number of records in some of the tables.
@@ -59,6 +72,7 @@ go run hello_world.go
 
 In the following sections, we explain each of the sample programs in more detail. The *Go* code of each sample program is listed at the end of each section.
 
+<a id='connect'></a>
 ## connect.go
 
 ```connect.go``` is a simple *Go* program that connects to the *SAMPLE* database. It imports the following packages which are required to deploy the Db2 driver API:
