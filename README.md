@@ -591,7 +591,7 @@ As in the previous example, the program first executes function *Prepare()* and 
 ```
 _, err = st.Exec(qty,id)
 ```
-*Note:* The order of the parameters used in the function call (*qty, id*) must match the order of the corresponding parameter markers in the SQL statement.
+**Note:** The order of the parameters used in the function call (*qty, id*) must match the order of the corresponding parameter markers in the SQL statement.
 
 Before you execute `update.go` check the current content of table *LINEITEM* from the shell:
 ```
@@ -659,7 +659,34 @@ func main() {
 
 # update_multiple_rows_with_autocommit.go
 
-Updates multiple rows in a loop. Each update is immediately commited.
+By default, SQL statemets that modify data are immediately commited after they are executed. It is also possible to perform multiple changes in one unit of work as you will see in a later example.
+
+The following sample program can be used to verify the default behaviour which auto commits each statement. The program retrieves each record from table *LINEITEM* and assigns a new quantity value to the record.
+
+It retrieves the records with the following select statement:
+```
+select * from lineitem
+```
+The values of each retrieved record are first stored into variables *id, name,* and *qty*. A record is modified with the following update statement:
+```
+update lineitem set qty=? where id=?
+```
+When you execute the program it will randomly select a new quantity value and assign this value to each record in the table. The new quantity value is based on the current time, i.e. with each execution of the program a different quantity value will be used.
+
+After a record was updated the program waits for one second before it continues to process the next record. This allows you to interrupt the program while the records are updated.
+
+Now perform the following steps:
+- Execute program *update_multiple_rows_with_autocommit.go* from the shell and wait until it has completed all updates.
+- Check the content of table lineitem by running the following commands from the shell:
+```
+su - db2inst1
+db2 connect to sample
+db2 "select * from lineitem"
+```
+- Execute program again and interrupt the program after it has updated the first two records. To interrupt the program type *Ctrl-C* in the shell window where you started the program.
+- Check the content of table *lineitem*.
+You see that some records have been updated with the new quantity value while other records have not yet been updated. In many cases, this is not the desired behaviour. In transactional systems you have to ensure that either all SQL statements of a transaction are performed or none of them. In the next lab we will modify program to implement this behaviour.
+
 ```
 // update_multiple_rows_with_autocommit.go
 
