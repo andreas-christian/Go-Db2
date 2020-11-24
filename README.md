@@ -752,7 +752,7 @@ func main() {
 
 The following sample program extents the previous example. It makes sure that all update statements are performed in one unit of work (UoW). This is achieved by calling function *Begin()* before the update operations start and by calling function *Commit()* after the updates are completed.
 
-Function Begin()returns a handle uow to the unit of work as follows:
+Function *Begin()* returns a handle *uow* to the unit of work as follows:
 ```
 uow, err := db.Begin()
 ```
