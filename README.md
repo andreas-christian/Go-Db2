@@ -221,7 +221,7 @@ The statement is prepared by executing function *db.Prepare()*. The function ret
 ```
 st, err := db.Prepare("select firstnme, lastname, job, workdept from employee where workdept = ?")
 ```
-Function *st.Query()* prepares and executes the SQL statement. We use statement handle st to reference the prepared statement. We also have to pass the appropriate number of parameters to the function. Since we prepared the statement with one parameter marker, we pass one parameter dept to the function:
+Function *st.Query()* prepares and executes the SQL statement. We use statement handle *st* to reference the prepared statement. We also have to pass the appropriate number of parameters to the function. Since we prepared the statement with one parameter marker, we pass one parameter dept to the function:
 ```
 rows,err := st.Query(dept)
 ```
@@ -340,7 +340,7 @@ If you want to insert multiple records into a table, you can first prepare the *
 ```
 insert into lineitem values (?,?,?)
 ```
-We first execute function *Prepare()* which returns handle st to the prepared statement:
+We first execute function *Prepare()* which returns handle *st* to the prepared statement:
 ```
 st, err := db.Prepare("insert into lineitem values (?,?,?)")
 ```
@@ -401,10 +401,25 @@ func main() {
         }
 }
 ```
-
 # delete_rows.go
 
-Deletes multiple rows in a loop.
+The next program example deletes multiple records from table *LINEITEM*. It uses a *DELETE* statement which contains a parameter marker as follows:
+```
+delete from lineitem where name=?
+```
+The statement is prepared with the following function call:
+```
+st, err := db.Prepare("delete from lineitem where name=?")
+```
+The names of the items to be deleted are stored in slice *lineitems*. The program iterates over the slice as shown below:
+```
+lineitems := []string{"Shirt","Coffee"}
+for _,item := range lineitems{
+    _,err = st.Exec(item)
+```
+When ranging over a slice, two values are returned for each iteration. The first is the index, and the second is a copy of the element (item) at that index. In our example, we don't store the first return value (index) and hence put an underscore in that place.
+
+
 ```
 // delete_rows.go
 
