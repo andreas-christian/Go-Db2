@@ -10,17 +10,17 @@ If you just want to get hands-on programming experience with *Go* language and *
 
 Here is an overview of the sample programs. More details are provided in the tutorial sections further down:
 * [`connect.go` Connects to the Db2 *sample* database.](#connect)
-* [`count_rows.go``` Counts the number of records in some of the tables.](#count_rows)
-* [`select_rows.go``` Executes a SELECT statement and retrieves the result set.](#select_rows)
-* [`prepare_and_select.go``` Executes a SELECT statement multiple times with different filter conditions.](#prepare_and_select)
-* [`insert_one_row.go``` Executes a simple INSERT statement.](#insert_one_row)
-* [`insert_multiple_rows.go``` Prepares an INSERT statement and then inserts multiple rows into a table.](#insert_multiple_rows)
-* [`delete_rows.go``` Deletes multiple rows in a loop.](#delete_rows)
-* [`create_table.go``` Executes a CREATE TABLE statement.](#create_table)
-* [`get_column_names.go``` Returns the names of the columns in a table.](#get_column_names)
-* [`update_row.go``` Updates exactly one row in a table. ](#update_row)
-* [`update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.](#update_multiple_rows_with_autocommit)
-* [`update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work.](#update_multiple_rows_in_one_unit_of_work)
+* [`count_rows.go` Counts the number of records in some of the tables.](#count_rows)
+* [`select_rows.go` Executes a SELECT statement and retrieves the result set.](#select_rows)
+* [`prepare_and_select.go` Executes a SELECT statement multiple times with different filter conditions.](#prepare_and_select)
+* [`insert_one_row.go` Executes a simple INSERT statement.](#insert_one_row)
+* [`insert_multiple_rows.go` Prepares an INSERT statement and then inserts multiple rows into a table.](#insert_multiple_rows)
+* [`delete_rows.go` Deletes multiple rows in a loop.](#delete_rows)
+* [`create_table.go` Executes a CREATE TABLE statement.](#create_table)
+* [`get_column_names.go` Returns the names of the columns in a table.](#get_column_names)
+* [`update_row.go` Updates exactly one row in a table. ](#update_row)
+* [`update_multiple_rows_with_autocommit.go` Updates multiple rows in a loop. Each update is immediately commited.](#update_multiple_rows_with_autocommit)
+* [`update_multiple_rows_in_one_unit_of_work.go` Updates multiple rows in one unit of work.](#update_multiple_rows_in_one_unit_of_work)
 
 ## Download and Install the required software
 Here are the prerequisites to run the sample programs on your local machine:
