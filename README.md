@@ -10,31 +10,17 @@ If you just want to get hands-on programming experience with *Go* language and *
 
 Here is an overview of the sample programs. More details are provided in the tutorial sections further down:
 * [`connect.go` Connects to the Db2 *sample* database.](#connect)
-3. ```count_rows.go``` Counts the number of records in some of the tables.
-4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
-5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
-6. ```insert_one_row.go``` Executes a simple INSERT statement.
-7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
-8. ```delete_rows.go``` Deletes multiple rows in a loop.
-9. ```create_table.go``` Executes a CREATE TABLE statement.
-10. ```get_column_names.go``` Returns the names of the columns in a table.
-11. ```update_row.go``` Updates exactly one row in a table. 
-12. ```update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.
-13. ```update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
-
-1. ```hello_world.go``` Prints the *Hello world* message.
-2. ```connect.go``` Connects to the Db2 *sample* database.
-3. ```count_rows.go``` Counts the number of records in some of the tables.
-4. ```select_rows.go``` Executes a SELECT statement and retrieves the result set.
-5. ```prepare_and_select.go``` Executes a SELECT statement multiple times using different parameter values in the WHERE clause in each execution.
-6. ```insert_one_row.go``` Executes a simple INSERT statement.
-7. ```insert_multiple_rows.go``` Prepares an INSERT statement and then executes that statement multiple times to insert multiple rows into a table.
-8. ```delete_rows.go``` Deletes multiple rows in a loop.
-9. ```create_table.go``` Executes a CREATE TABLE statement.
-10. ```get_column_names.go``` Returns the names of the columns in a table.
-11. ```update_row.go``` Updates exactly one row in a table. 
-12. ```update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.
-13. ```update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
+* [`count_rows.go``` Counts the number of records in some of the tables.](#count_rows)
+* [`select_rows.go``` Executes a SELECT statement and retrieves the result set.](#select_rows)
+* [`prepare_and_select.go``` Executes a SELECT statement multiple times with different filter conditions.](#prepare_and_select)
+* [`insert_one_row.go``` Executes a simple INSERT statement.](#insert_one_row)
+* [`insert_multiple_rows.go``` Prepares an INSERT statement and then inserts multiple rows into a table.](#insert_multiple_rows)
+* [`delete_rows.go``` Deletes multiple rows in a loop.](#delete_rows)
+* [`create_table.go``` Executes a CREATE TABLE statement.](#create_table)
+* [`get_column_names.go``` Returns the names of the columns in a table.](#get_column_names)
+* [`update_row.go``` Updates exactly one row in a table. ](#update_row)
+* [`update_multiple_rows_with_autocommit.go``` Updates multiple rows in a loop. Each update is immediately commited.](#update_multiple_rows_with_autocommit)
+* [`update_multiple_rows_in_one_unit_of_work.go``` Updates multiple rows in one unit of work.](#update_multiple_rows_in_one_unit_of_work)
 
 ## Download and Install the required software
 Here are the prerequisites to run the sample programs on your local machine:
@@ -120,7 +106,7 @@ func main() {
         fmt.Println("Success!")
 }
 ```
-
+<a id='count_rows'></a>
 # count_rows.go
 
 In the next example, we use function *db.QueryRow()* to run a query that is expected to return at most one row. If there are multiple rows in the query result set, the function will only access the first row and discard the rest. We use the following type of *SELECT* statement in this example:
@@ -172,6 +158,7 @@ func main() {
         count("ORG")
 }
 ```
+<a id='select_rows'></a>
  # select_rows.go
 
 Next, you learn how to run a *SELECT* statement that returns more than one row. In this example, we use the following select statement:
@@ -225,6 +212,7 @@ func main() {
         }
 }
 ```
+<a id='prepare_and_select'></a>
 # prepare_and_select.go
 
 In some cases you may want to execute a query several times but with different filter conditions. In this case, you can prepare the statement once and then execute it multiple times and use a different filter condition in each execution. This allows you to reuse the prepared statement and reduces the overhead of statement preparation. To do this you need to use a parameter marker (?) as shown in the example below:
@@ -300,7 +288,7 @@ func main() {
         }
 }
 ```
-
+<a id='insert_one_row'></a>
 # insert_one_row.go
 
 The next sample program inserts a single row into table *LINEITEM* using the following SQL statement:
@@ -349,6 +337,7 @@ func main() {
         fmt.Println("Row inserted.")
 }
 ```
+<a id='insert_multiple_rows'></a>
 # insert_multiple_rows.go
 
 If you want to insert multiple records into a table, you can first prepare the *INSERT* statement and then execute it multiple times as shown in the next example. We use a *INSERT* statement which contains parameter markers as follows:
@@ -416,6 +405,7 @@ func main() {
         }
 }
 ```
+<a id='delete_rows'></a>
 # delete_rows.go
 
 The next program example deletes multiple records from table *LINEITEM*. It uses a *DELETE* statement which contains a parameter marker as follows:
@@ -486,7 +476,7 @@ func main() {
         }
 }
 ```
-
+<a id='create_table'></a>
 # create_table.go
 
 The next sample program creates a new table using the following SQL statement:
@@ -530,7 +520,7 @@ func main() {
         fmt.Println("TABLE CREATED")
 }
 ```
-
+<a id='get_column_names'></a>
 # get_column_names.go
 
 To retrieve the column names from a table, we use a SQL query that selects all columns from the table and retrieves one row only:
@@ -594,7 +584,7 @@ func main() {
         }
 }
 ```
-
+<a id='update_row'></a>
 # update_row.go
 
 The next program example updates one of the records in table *LINEITEM*. It uses an *UPDATE* statement which contains parameter markers as follows:
@@ -670,7 +660,7 @@ func main() {
         fmt.Println("Row updated.")
 }
 ```
-
+<a id='update_multiple_rows_with_autocommit'></a>
 # update_multiple_rows_with_autocommit.go
 
 By default, SQL statemets that modify data are immediately commited after they are executed. It is also possible to perform multiple changes in one unit of work as you will see in a later example.
@@ -761,7 +751,7 @@ func main() {
         }
 }
 ```
-
+<a id='update_multiple_rows_in_one_unit_of_work'></a>
 # update_multiple_rows_in_one_unit_of_work.go
 
 The following sample program extents the previous example. It makes sure that all update statements are performed in one unit of work (UoW). This is achieved by calling function *Begin()* before the update operations start and by calling function *Commit()* after the updates are completed.
