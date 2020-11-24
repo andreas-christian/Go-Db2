@@ -293,6 +293,7 @@ The next sample program inserts a single row into table *LINEITEM* using the fol
 ```
 insert into lineitem values (99,'Flowers',5)
 ```
+The Db2-GO API provides function *Exec()* to execute DML statements (*INSERT, UPDATE, DELETE, CREATE,DROP*). This function can either prepare and execute a statement in one single step or you can first prepare a statement and then use *Exec()* to execute the statement.
 In cases where you only execute a SQL statement one time, you can keep the code simple and prepare and execute the statement in one single step:
 ```
 _,err:=db.Exec("insert into lineitem values (99,'Flowers',5)")
@@ -469,7 +470,12 @@ func main() {
 
 # create_table.go
 
-Executes a CREATE TABLE statement.
+The next sample program creates a new table using the following SQL statement:
+```
+create table LINEITEM(ID int,NAME varchar(20),QTY int)
+```
+In this example, the statement is prepared and executed in one step. In case the table already exists, function *Exec()* will return error *SQL0601* and the program will only print the error message and terminate.
+
 ```
 // create_table.go
 
