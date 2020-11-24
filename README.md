@@ -750,7 +750,33 @@ func main() {
 
 # update_multiple_rows_in_one_unit_of_work.go
 
-Updates multiple rows in one unit of work and uses the *Begin()* and *Commit()* functions.
+The following sample program extents the previous example. It makes sure that all update statements are performed in one unit of work (UoW). This is achieved by calling function *Begin()* before the update operations start and by calling function *Commit()* after the updates are completed.
+
+Function Begin()returns a handle uow to the unit of work as follows:
+```
+uow, err := db.Begin()
+```
+This handle must be used in all following SQL calls that should be part of this particular unit of work. Therefore, we execute the update statements as follows:
+```
+_,err = uow.Exec("update lineitem set qty=? where id=?",newqty,id)
+```
+We also use handle *uow* to execute function *Commit()* as follows:
+```
+err = uow.Commit()
+```
+Now perform the following steps:
+- Execute program *update_multiple_rows_in_one_unit_of_work.go* from the shell and wait until it has completed all updates.
+Check the content of table *lineitem* by running the following commands from the shell:
+```
+su - db2inst1
+db2 connect to sample
+db2 "select * from lineitem"
+```
+- Execute the program again and interrupt the program after it has updated the first two records. To interrupt the program type *Ctrl-C* in the shell window where you started the program.
+- Check the content of table *lineitem*. You see that no records have been updated.
+
+As explained above, you can use functions *Begin()* and *Commit()* to perform multiple changes as one atomic transaction. This ensures that either all changes or none of the changes are performed.
+
 ```
 // update_multiple_rows_in_one_unit_of_work.go
 
