@@ -583,20 +583,22 @@ func main() {
 
 # update_row.go
 
-The next program example updates one of the records in table L*INEITEM*. It uses an `UPDATE` statement which contains parameter markers as follows:
-```sql
+The next program example updates one of the records in table *LINEITEM*. It uses an *UPDATE* statement which contains parameter markers as follows:
+```
 update lineitem set qty=? where id=?
 ```
+As in the previous example, the program first executes function *Prepare()* and then calls function  *Exec()* and passes the appropriate parameter values for each of the two parameter markers that are used in the SQL statement. 
+```
+_, err = st.Exec(qty,id)
+```
+*Note:* The order of the parameters used in the function call (*qty, id*) must match the order of the corresponding parameter markers in the SQL statement.
 
-As in the previous example, the program first executes function ```Prepare()``` and then calls function  ```Exec()``` and passes the appropriate parameter values for each of the two parameter markers that are used in the SQL statement. 
-
-Before you execute `update.go` check the current content of table `LINEITEM` from the shell:
+Before you execute `update.go` check the current content of table *LINEITEM* from the shell:
 ```
 su - db2inst1
 db2 connect to sample
 db2 "select * from lineitem"
 ```
-
 The output should look like this:
 
 |ID|NAME|QTY|
@@ -645,7 +647,7 @@ func main() {
 
         id := 0
         qty := 3
-        _, err = st.Exec(id, qty)
+        _, err = st.Exec(qty,id)
         if err != nil{
                 fmt.Println("Error:")
                 fmt.Println(err)
