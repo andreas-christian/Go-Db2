@@ -13,10 +13,10 @@ Here is an overview of the sample programs. Click one of the following links to 
 * [`count_rows.go` Counts the number of records in some of the tables.](#count_rows)
 * [`select_rows.go` Executes a SELECT statement and retrieves the result set.](#select_rows)
 * [`prepare_and_select.go` Executes a SELECT statement multiple times with different filter conditions.](#prepare_and_select)
+* [`create_table.go` Executes a CREATE TABLE statement.](#create_table)
 * [`insert_one_row.go` Executes a simple INSERT statement.](#insert_one_row)
 * [`insert_multiple_rows.go` Prepares an INSERT statement and then inserts multiple rows into a table.](#insert_multiple_rows)
 * [`delete_rows.go` Deletes multiple rows in a loop.](#delete_rows)
-* [`create_table.go` Executes a CREATE TABLE statement.](#create_table)
 * [`get_column_names.go` Returns the names of the columns in a table.](#get_column_names)
 * [`update_row.go` Updates exactly one row in a table. ](#update_row)
 * [`update_multiple_rows_with_autocommit.go` Updates multiple rows in a loop. Each update is immediately commited.](#update_multiple_rows_with_autocommit)
@@ -288,6 +288,50 @@ func main() {
         }
 }
 ```
+<a id='create_table'></a>
+# create_table.go
+
+The next sample program creates a new table using the following SQL statement:
+```
+create table LINEITEM(ID int, NAME varchar(20), QTY int)
+```
+In this example, the statement is prepared and executed in one step. In case the table already exists, function *Exec()* will return error *SQL0601* and the program will only print the error message and terminate.
+
+```
+// create_table.go
+
+package main
+import (
+    _ "github.com/ibmdb/go_ibm_db"
+    "database/sql"
+    "fmt"
+)
+
+var err error
+var db *sql.DB
+var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
+
+func connect() error {
+        db, err = sql.Open("go_ibm_db", con)
+        if err != nil {
+                fmt.Println(err)
+                return err
+        }
+        return nil
+}
+
+func main() {
+        if connect() != nil { return } else { defer db.Close() }
+
+        _,err:=db.Exec("create table LINEITEM(ID int,NAME varchar(20),QTY int)")
+        if err != nil{
+                fmt.Println("Error:")
+                fmt.Println(err)
+                return
+        }
+        fmt.Println("TABLE CREATED")
+}
+```
 <a id='insert_one_row'></a>
 # insert_one_row.go
 
@@ -476,50 +520,7 @@ func main() {
         }
 }
 ```
-<a id='create_table'></a>
-# create_table.go
 
-The next sample program creates a new table using the following SQL statement:
-```
-create table LINEITEM(ID int, NAME varchar(20), QTY int)
-```
-In this example, the statement is prepared and executed in one step. In case the table already exists, function *Exec()* will return error *SQL0601* and the program will only print the error message and terminate.
-
-```
-// create_table.go
-
-package main
-import (
-    _ "github.com/ibmdb/go_ibm_db"
-    "database/sql"
-    "fmt"
-)
-
-var err error
-var db *sql.DB
-var con = "HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;UID=DB2INST1;PWD=db2inst1"
-
-func connect() error {
-        db, err = sql.Open("go_ibm_db", con)
-        if err != nil {
-                fmt.Println(err)
-                return err
-        }
-        return nil
-}
-
-func main() {
-        if connect() != nil { return } else { defer db.Close() }
-
-        _,err:=db.Exec("create table LINEITEM(ID int,NAME varchar(20),QTY int)")
-        if err != nil{
-                fmt.Println("Error:")
-                fmt.Println(err)
-                return
-        }
-        fmt.Println("TABLE CREATED")
-}
-```
 <a id='get_column_names'></a>
 # get_column_names.go
 
