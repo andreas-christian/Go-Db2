@@ -48,6 +48,8 @@ https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.s
 
 ## How to execute the sample programs
 
+**Note:** Run the sample programs in the specified order. Some of the programs make changes to the database that are required later on by other programs. Also adjust the connect parameters in the program code and replace the password with the password of your *db2inst1* user.
+
 The following example shows how to execute the sample programs. We assume that you have downloaded and extracted the git repository in the home directory of your user. To run program *hello_world.go* on Linux for example, you take the following steps:
 ```
 cd ~/Go-Db2/programs
@@ -194,11 +196,11 @@ func main() {
         if connect() != nil { return } else { defer db.Close() }
 
         rows,err := db.Query("select firstnme, lastname, job from employee where job='MANAGER'")
+        if rows != nil {defer rows.Close()}
         if err != nil {
+                fmt.Println(err)
                 return
         }
-        // make sure that the "rows" handle is released when main returns
-        defer rows.Close()
 
         // iterate over all rows in the query result
         var a,b,c string
@@ -568,12 +570,11 @@ func main() {
         if connect() != nil { return } else { defer db.Close() }
 
         rows,err := db.Query("select * from employee fetch first 1 row only")
+        if rows != nil {defer rows.Close()}
         if err != nil {
                 fmt.Printf("db.Query(): error!")
                 return
         }
-        // make sure that the "rows" handle is released when main returns
-        defer rows.Close()
 
         cols, err := rows.Columns()
         fmt.Println("Number of columns: ",len(cols))
@@ -718,10 +719,11 @@ func main() {
         if connect() != nil { return } else { defer db.Close() }
 
         rows,err := db.Query("select * from lineitem")
+        if rows != nil {defer rows.Close()}
         if err != nil {
+                fmt.Println(err)
                 return
         }
-        defer rows.Close()
 
         var currentTime int64
         currentTime = time.Now().Unix()
@@ -809,10 +811,10 @@ func main() {
         if connect() != nil { return } else { defer db.Close() }
 
         rows,err := db.Query("select * from lineitem")
+        if rows != nil {defer rows.Close()}
         if err != nil {
                 return
         }
-        defer rows.Close()
 
         var currentTime int64
         currentTime = time.Now().Unix()
