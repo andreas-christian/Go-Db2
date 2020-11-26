@@ -23,12 +23,11 @@ func main() {
         if connect() != nil { return } else { defer db.Close() }
 
         rows,err := db.Query("select * from employee fetch first 1 row only")
+        if rows != nil {defer rows.Close()}
         if err != nil {
                 fmt.Printf("db.Query(): error!")
                 return
         }
-        // make sure that the "rows" handle is released when main returns
-        defer rows.Close()
 
         cols, err := rows.Columns()
         fmt.Println("Number of columns: ",len(cols))
