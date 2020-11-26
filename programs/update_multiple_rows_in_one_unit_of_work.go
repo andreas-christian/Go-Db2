@@ -24,10 +24,11 @@ func main() {
         if connect() != nil { return } else { defer db.Close() }
 
         rows,err := db.Query("select * from lineitem")
+        if rows != nil {defer rows.Close()}
         if err != nil {
+                fmt.Println(err)
                 return
         }
-        defer rows.Close()
 
         var currentTime int64
         currentTime = time.Now().Unix()
