@@ -22,11 +22,10 @@ func main() {
         if connect() != nil { return } else { defer db.Close() }
 
         rows,err := db.Query("select firstnme, lastname, job from employee where job='MANAGER'")
+        if rows != nil {defer rows.Close()}
         if err != nil {
                 return
         }
-        // make sure that the "rows" handle is released when main returns
-        defer rows.Close()
 
         // iterate over all rows in the query result
         var a,b,c string
